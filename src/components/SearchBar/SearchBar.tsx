@@ -6,15 +6,15 @@ interface SearchBarProps {
 }
 
 function SearchBar({ onSubmit }: SearchBarProps) {
-  async function handleAction(formdata: FormData) {
-    const query = String(formdata.get("query") ?? "").trim();
+  function handleAction(formdata: FormData) {
+    const query = String(formdata.get('query')).trim();
     if (!query) {
       toast.error('Please enter your search query.');
+      return;
     }
+
     onSubmit(query);
   }
-  
-
 
   return (
     <header className={styles.header}>
