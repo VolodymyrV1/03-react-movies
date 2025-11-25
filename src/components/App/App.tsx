@@ -52,6 +52,7 @@ function App() {
 
     } finally {
       setIsLoading(false);
+      setIsError(false);
     }
     
 
