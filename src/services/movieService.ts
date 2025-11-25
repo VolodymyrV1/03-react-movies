@@ -6,7 +6,7 @@ const TOKEN = import.meta.env.VITE_TMDB_API_TOKEN;
 
 interface TMDBResponse {
   page: number;
-  result: Movie[];
+  results: Movie[];
   total_pages: number;
   total_results: number;
 }

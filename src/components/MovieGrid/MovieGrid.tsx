@@ -1,12 +1,43 @@
 import css from './MovieGrid.module.css';
+import { Movie } from '../../types/movie';
 
+interface MovieGridProps {
+    onSelect: (movies: Movie) => void;
+    movies: Movie[];
 
-
-function MovieGrid() {
-    return (
-        <p className={css.message}>No feedback yet</p>
-    )
 }
 
+function MovieGrid({ onSelect, movies }: MovieGridProps) {
+    
+    function handleClick() {
+
+    }
+
+
+  return (
+    <ul className={css.grid}>
+      {movies.map(movie => (
+        <li key={movie.id}>
+          <div className={css.card} onClick={handleClick}>
+            <img
+              className={css.image}
+              src={
+                `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+
+                // movie.poster_path
+                //   ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                //   : placeholderPath('500x750')
+              }
+              alt={movie.title}
+              loading="lazy"
+            />
+            <h2 className={css.title}>{movie.title}</h2>
+          </div>
+        </li>
+      ))}
+      ;
+    </ul>
+  );
+}
 
 export default MovieGrid;
