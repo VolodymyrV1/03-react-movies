@@ -1,7 +1,7 @@
 
 import { toast, Toaster } from 'react-hot-toast';
 import { useState } from 'react';
-import { Movie } from '../../types/movie';
+import type { Movie } from '../../types/movie';
 
 
 import css from "./App.module.css";
@@ -13,6 +13,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import MovieModal from '../MovieModal/MovieModal';
 
 
 
@@ -21,6 +22,7 @@ function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
 
 
@@ -52,14 +54,21 @@ function App() {
 
     } finally {
       setIsLoading(false);
-      setIsError(false);
+      // setIsError(false);
     }
     
 
   }
 
-  function handleSelect() {
+  function handleSelect(movie: Movie) {
+    setSelectedMovie(movie);
+    console.log(movie);
+    
 
+  }
+
+  function closeModal() {
+    setSelectedMovie(null);
   }
 
 
@@ -75,13 +84,12 @@ function App() {
 
       {isError && <ErrorMessage />}
       {!isError && movies.length > 0 && (
-        <MovieGrid onSelect={handleSelect} movies={movies}/>
+        <MovieGrid onSelect={handleSelect} movies={movies} />
       )}
-
-
+      {selectedMovie && (
+        <MovieModal movie={selectedMovie} onClose={closeModal} />
+      )}
     </div>
-
-
   );
 }
 
